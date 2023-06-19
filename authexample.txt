@@ -1,5 +1,5 @@
 {
-  // rename file to auth.json and move into Modules->FIO and update user and pw
+  // 1. update user/pass 2. move to modules->fio 3. rename to auth.json 4. remove this line
   "UserName": "Saganaki",
   "Password": "Hunter2"
 }
