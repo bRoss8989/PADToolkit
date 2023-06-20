@@ -1,5 +1,6 @@
 import json
 import requests
+import os
 
 def FIO_APIKEY():
     with open('auth.json', 'r') as file:
