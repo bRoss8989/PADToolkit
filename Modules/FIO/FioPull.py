@@ -24,12 +24,13 @@ def FIO_PULL(location, loop=0):             #1. gets api headers via key check
         if str(fiocontent) == '<Response [401]>':       
             os.remove(fio_base_dir+'fiokey.json')
             time.sleep(5)
-            if loop == 2:
+            if loop == 1:
                 return 'repeating auth error'
             loop = loop + 1
 
         if str(fiocontent) == '<Response [200]>':
             return json.loads(fiocontent.content)
+    return fiocontent
 
 def FIO_KEY_CHECK():
     if os.path.exists(fio_base_dir+'fiokey.json') == False:
