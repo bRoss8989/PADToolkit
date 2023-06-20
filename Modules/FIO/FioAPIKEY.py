@@ -1,9 +1,9 @@
 import json
 import requests
-import os
+from CommonPaths import fio_base_dir
 
 def FIO_APIKEY():
-    with open('auth.json', 'r') as file:
+    with open(fio_base_dir+'auth.json', 'r') as file:
         apiauth = json.load(file)
         
     FIOAPIKEY = requests.post('https://rest.fnar.net/auth/login',json=apiauth)
