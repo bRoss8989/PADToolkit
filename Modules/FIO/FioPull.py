@@ -14,23 +14,31 @@ def FIO_PULL(location, loop=0):             #1. gets api headers via key check
             return head
         
         fiocontent = requests.get('https://rest.fnar.net/'+location,headers=head)
-
-        if str(fiocontent) == '<Response [400]>':
-            return "parse error"
-
-        if str(fiocontent) == '<Response [204]>':
-            return "path error"  
-
-        if str(fiocontent) == '<Response [401]>':       
-            os.remove(fio_base_dir+'fiokey.json')
-            time.sleep(5)
-            if loop == 1:
-                return 'repeating auth error'
-            loop = loop + 1
-
-        if str(fiocontent) == '<Response [200]>':
+        
+        status_code = fiocontent.status_code
+        
+        if status_code == 200:
             return json.loads(fiocontent.content)
-    return fiocontent
+        
+        else:
+
+            if status_code == 400:
+                return "parse error"
+
+            elif status_code == 204:
+                return "no content"
+
+            elif status_code == 404:
+                return "path error"                
+
+            elif status_code == 401:       
+                os.remove(fio_base_dir+'fiokey.json')
+                time.sleep(5)
+                if loop == 1:
+                    return 'repeating auth error'
+                loop = loop + 1
+        
+    return "other failure"
 
 def FIO_KEY_CHECK():
     if os.path.exists(fio_base_dir+'fiokey.json') == False:
