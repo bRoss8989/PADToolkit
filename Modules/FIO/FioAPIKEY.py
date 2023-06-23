@@ -8,7 +8,7 @@ def FIO_APIKEY():
         
     FIOAPIKEY = requests.post('https://rest.fnar.net/auth/login',json=apiauth)
     
-    if str(FIOAPIKEY) != '<Response [200]>':
+    if FIOAPIKEY.status.code != 200:
         return "auth error"
     else:
         FIOAPIKEY = json.loads(FIOAPIKEY.content)

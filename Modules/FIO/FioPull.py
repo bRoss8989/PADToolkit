@@ -10,7 +10,7 @@ def FIO_PULL(location, loop=0):             #1. gets api headers via key check
     while loop != 2:
         head = FIO_KEY_CHECK()
         
-        if head == "auth error":
+        if head == "failed to get key":
             return head
         
         fiocontent = requests.get('https://rest.fnar.net/'+location,headers=head)
