@@ -45,8 +45,8 @@ def FIO_KEY_CHECK():
         
         head = {'Authorization':FIO_APIKEY()}
         
-        if head == "auth error":
-            head = 'auth error'
+        if head == "failed to get key":
+            head = 'failed to get key'
         else:
             with open(fio_base_dir+'fiokey.json', 'w') as fp:
                 json.dump(head, fp)
