@@ -1,6 +1,6 @@
 
 
-def PAD_Version(Version_List):            #0 Starting_PAD 1 Static 2 COG 3 COG_Miss 4 Outputs 5 Base_Amort 6 Ship_daily_Cost 7 Available_Ship_type 8 Natural_Planets
+def PAD_Version(Version_List):            #0 Starting_PAD 1 Static 2 COG 3 COG_Miss 4 Outputs 5 Base_Amort (days) 6 Ship_daily_Cost (increments of 100 FF, max 2000) 7 Available_Ship_type 8 Natural_Planets
     PAD_Key = 'PAD_'
     for item in Version_List:
         PAD_Key = PAD_Key+'V'+str(item)
