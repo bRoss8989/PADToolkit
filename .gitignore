@@ -161,3 +161,4 @@ cython_debug/
 #.idea/
 auth.json
 fiokey.json
+mongopw.py
