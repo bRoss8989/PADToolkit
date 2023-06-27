@@ -1,6 +1,7 @@
 import pymongo
 from pymongo import MongoClient
 from Modules.Storage.mongopw import mongopass, db_addr
+from Modules.Versioning.Versioning import PAD_Version_Validation
 
 mongo = MongoClient('mongodb://'+db_addr+':27017/',username='admin',password=mongopass)
 
@@ -19,7 +20,7 @@ Varname = {
 
 def StoreMongo(app, collection, key, value):
     
-    check = MongoVal(app, collection)
+    check = MongoVal(app, collection, key)
     if check != 'good':
         return check
     
@@ -39,7 +40,7 @@ def StoreMongo(app, collection, key, value):
 
 def ReadMongo(app, collection, key):
                     
-    check = MongoVal(app, collection)
+    check = MongoVal(app, collection, key)
     if check != 'good':
         return check
     
@@ -55,7 +56,7 @@ def ReadMongo(app, collection, key):
                     
     return data[key]
                     
-def MongoVal(app, collection):
+def MongoVal(app, collection, key):
         
     if app != 'PAD':
         return 'wrong app'
@@ -65,6 +66,10 @@ def MongoVal(app, collection):
         
     if collection not in range(9):
         return 'bad collection'
+    
+    check2 = PAD_Version_Validation(collection, key)
+    if check2 == 'failed val':
+        return 'bad key'
     
     return 'good'
   
