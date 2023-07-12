@@ -29,10 +29,11 @@ def StoreMongo(app, collection, key, value):
     mongoapp = mongo[app]
     mongocollection = mongoapp[collection_des]
     
-    check = mongocollection.find_one({key:{'$exists': True}})
+    check = mongocollection.find_one({str(key):{'$exists': True}})
                     
-    if str(check) == 'None':
-        mongocollection.insert_one({key:value})
+    if check == None:
+        mongocollection.insert_one({str(key):value})
+        return 'added'
                     
     else:
                     
@@ -43,18 +44,18 @@ def ReadMongo(app, collection, key):
     check = MongoVal(app, collection, key)
     if check != 'good':
         return check
-    
+
     collection_des = Varname[collection]
                     
     mongoapp = mongo[app]
     mongocollection = mongoapp[collection_des]
                     
-    data = mongocollection.find_one({key:{'$exists': True}})
+    data = mongocollection.find_one({str(key):{'$exists': True}})
                     
-    if str(data) == 'None':
+    if data == None:
         return 'not found'
                     
-    return data[key]
+    return data[str(key)]
                     
 def MongoVal(app, collection, key):
         
