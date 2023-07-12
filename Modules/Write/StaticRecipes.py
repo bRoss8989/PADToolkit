@@ -2,7 +2,7 @@ from Modules.FIO.FioRecipesDict import FioRecipesDict
 from Modules.FIO.FioMaterialsDict import FioMaterialsDict
 from Modules.Storage.StoreMongo import StoreMongo
 
-def BuildRecipes(version):
+def StaticRecipes(version):
     fio_recipes = FioRecipesDict()
     fio_mat = FioMaterialsDict()
     re = ['minerals','gases','ores','liquids']
