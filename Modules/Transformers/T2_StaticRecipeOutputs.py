@@ -1,5 +1,5 @@
 
-def StaticT2RecipeOutputs(recipes):
+def T2_StaticRecipeOutputs(recipes):
 
     outputs = {} # key is output, list item 0 is all recipes, list item 1 is all inputs for every recipe
     

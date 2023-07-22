@@ -1,6 +1,6 @@
 from Modules.Storage.StoreMongo import StoreMongo
-from Modules.Write.StaticRecipes import StaticRecipes
-from Modules.Write.StaticT2RecipeOutputs import StaticT2RecipeOutputs
+from Modules.Transformers.StaticRecipes import StaticRecipes
+from Modules.Transformers.T2_StaticRecipeOutputs import T2_StaticRecipeOutputs
 
 def StaticDataCreate(version):
 
@@ -10,7 +10,7 @@ def StaticDataCreate(version):
 
     # tier 2 (dependant on t1)
 
-    outputs = StaticT2RecipeOutputs(fio_recipes)
+    outputs = T2_StaticRecipeOutputs(fio_recipes)
 
     # write to mongo
 
