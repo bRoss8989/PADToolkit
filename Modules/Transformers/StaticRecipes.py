@@ -1,6 +1,5 @@
 from Modules.FIO.FioRecipesDict import FioRecipesDict
 from Modules.FIO.FioMaterialsDict import FioMaterialsDict
-from Modules.Storage.StoreMongo import StoreMongo
 
 def StaticRecipes():
     fio_recipes = FioRecipesDict()
