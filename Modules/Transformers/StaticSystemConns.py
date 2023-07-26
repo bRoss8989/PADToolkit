@@ -1,5 +1,6 @@
 from Modules.FIO.FioAllSystemsDict import FioNaturalSystems
 from Modules.FIO.FioNaturalSystems import FioNaturalSystemsList
+from Modules.Transformers.abc_planet_system_keygen import abc_key
 
 def systemid_to_system():
     
@@ -25,7 +26,8 @@ def system_conns():
             raw_connection = connection['SystemConnectionId']
             next_system = str(raw_connection[33:65])
             next_system = id_dict[next_system]
-            value.append([system + '->' + next_system, next_system])
+            key = abc_key(system, next_system)
+            value.append([key, next_system])
             
         systems_connection_dict[system] = value
         
