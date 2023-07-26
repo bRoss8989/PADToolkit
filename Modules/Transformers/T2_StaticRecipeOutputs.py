@@ -14,6 +14,8 @@ def T2_StaticRecipeOutputs(recipes):
         for item in input_list:
             if item not in outputs[key][1]:
                 outputs[key][1].append(item)
+
+    outputs['NA'] = [['=>NA'],[]]
     
     return outputs
     

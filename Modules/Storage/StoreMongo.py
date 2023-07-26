@@ -3,7 +3,10 @@ from pymongo import MongoClient
 from Modules.Storage.mongopw import mongopass, db_addr
 from Modules.Versioning.Versioning import PAD_Version_Validation
 
-mongo = MongoClient('mongodb://'+db_addr+':27017/',username='admin',password=mongopass)
+if mongopass == '':
+    mongo = MongoClient('mongodb://'+db_addr+':27017/')
+else:
+    mongo = MongoClient('mongodb://'+db_addr+':27017/',username='admin',password=mongopass)    
 
 Varname = {
             0: 'Starting_PAD',
