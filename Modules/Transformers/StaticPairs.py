@@ -5,7 +5,7 @@ from Modules.Transformers.abc_planet_system_keygen import abc_key
 
 
 
-def stl_pairs():
+def stl_pairs():  # {'YK-024': [['YK-024a', 'YK-024b', 158.0], ['YK-024a', 'YK-024c', 249.0]}  [planet1, planet2, sum of orbital axis]
 
     planets_data = FioNaturalPlanets()
     systems = FioNaturalSystemsList()
@@ -39,7 +39,7 @@ def stl_pairs():
 
     return pairs
 
-def system_pairs():
+def system_pairs():          # {'QQ-001_OT-580':['QQ-001','OT-580']}     abc_key for unorded pair combinations with a list of the two systems
 
     systems = FioNaturalSystemsList()
 
