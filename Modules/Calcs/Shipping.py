@@ -1,5 +1,5 @@
 import pandas as pd
-from Modules.Calcs.JumpList import JumpDict
+from Modules.Calcs.JumpCalc import JumpDict
 from Modules.Transformers.StaticPairs import stl_pairs
 from Modules.Transformers.StaticSystemStars import system_stars
 from Modules.Transformers.abc_planet_system_keygen import abc_key
