@@ -99,6 +99,10 @@ def ff_stats(ship,gw):
     charge_time = gw * 0.025 / 7200  # per hour
     if gw < 4800:
         parsec_per_hour = gw * max_parsec_hr / 7200 + 0.7070473423355021 * ((2800 - (gw-2000))/2800)
+        if gw < 2000:
+            parsec_per_hour = parsec_per_hour + 0.1 * ((800 - (gw-1200))/800)
+        if gw < 1200:
+            return 'error gw too low'
     else:
         parsec_per_hour = gw * max_parsec_hr / 7200
     ff_per_parsec = gw * ff_parsec_4800gw / 4800
@@ -214,36 +218,36 @@ def shipping_lpd(ship, start, end, gw, sf_burn):
         ftl_loads = 3.5
         ff_used = ff_used * 2
         sf_used = sf_used * 1.9
-        return ftl_loads, ff_used, sf_used, hours, par;
+        return ftl_loads, ff_used, sf_used, ff_hours, par, parsec_per_hour;
     if hours <= 6:
         ftl_loads = 1.5
         ff_used = ff_used * 2
         sf_used = sf_used * 1.9
-        return ftl_loads, ff_used, sf_used, hours, par;
+        return ftl_loads, ff_used, sf_used, ff_hours, par, parsec_per_hour;
     if hours <= 11:
         ftl_loads = 1
         ff_used = ff_used * 2
         sf_used = sf_used * 1.9
-        return ftl_loads, ff_used, sf_used, hours, par;
+        return ftl_loads, ff_used, sf_used, ff_hours, par, parsec_per_hour;
     if hours > 11:
         ftl_loads = 1/(math.floor((hours-1)/12) + 1)   ## 1 hr buffer 1/multiple of 12hrs gives loads
         ff_used = ff_used * 2
         sf_used = sf_used * 1.9
-        return ftl_loads, ff_used, sf_used, hours, par;
+        return ftl_loads, ff_used, sf_used, ff_hours, par, parsec_per_hour;
 
 
 def shipping_optimizer_emptyback(ship, ship_value_daily, start, end):
     
     max_gw = 7200
     max_ff = 4000
-    min_gw = 2000
+    min_gw = 1200
     dollar_per_sf = 14.79141344
     dollar_per_ff = 15.1124692
     
     gw_used = 7200
     combo_list = []
 
-    while gw_used >= 2000:
+    while gw_used >= 1200:
         sf_multiplier = 1
         needs_refuel = 'No'
         temp_norm = shipping_lpd(ship, start, end, gw_used, 'norm')
@@ -253,7 +257,7 @@ def shipping_optimizer_emptyback(ship, ship_value_daily, start, end):
         if temp_norm[1] > max_ff:  #checks fuel use and continues if over max tank
             gw_used = gw_used - 400
             
-            if gw_used == 2000 and combo_list == []:                                             #checks if a refeul is required at min gw. 
+            if gw_used == 1200 and combo_list == []:                                             #checks if a refeul is required at min gw. 
                 combo_list.append([dollars+ ship_value_daily + 2*(dollar_per_sf * temp_norm[2]), #increases cost by 1 day and extra sf for landing
                                    1/(1/temp_norm[0] +1),                                        # adds 1 day to days per load and converts back to loads per day
                                     gw_used,
