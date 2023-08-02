@@ -1,5 +1,4 @@
 from Modules.FIO.FioPull import FIO_PULL
-from Modules.FIO.FioNaturalPlanets import FioNaturalPlanetsList
 
 
 def pop():
