@@ -101,18 +101,20 @@ def current_pop():
     
     current_pop_dict = {}
     pop_order = ['PIO','SET','TECH','ENG','SCI']
-    for planet in planets:
+    
+    for planet in pop.keys():
         templist = [0,0,0,0,0]
-        if planet in pop.keys():
-            for pop_list_item in pop[planet]:
-                index = pop_order.index(pop_list_item[2])
-                templist[index] = pop_list_item[-1]
-            popcheck = 0
-            for pop_num in templist:
-                popcheck = popcheck + pop_num
+        
+        for pop_list_item in pop[planet]:
+            index = pop_order.index(pop_list_item[2])
+            templist[index] = pop_list_item[-1]
+            
+        popcheck = 0
+        for pop_num in templist:
+            popcheck = popcheck + pop_num
 
-            if popcheck <= 100:
-                continue
-            else:
-                current_pop_dict[planet] = templist
+        if popcheck <= 100:
+            continue
+        else:
+            current_pop_dict[planet] = templist
     return current_pop_dict
