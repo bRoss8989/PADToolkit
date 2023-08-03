@@ -12,5 +12,7 @@ mongopass = ''
 db_addr = ''
 
 Modules typically return full lists or dicts
+
 natural_id's from in-game are used for nearly everything
+
 for any unordered pair key the abc_gen is used to concat 2 inputs in abc order with _ between
