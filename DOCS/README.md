@@ -3,6 +3,8 @@ PrUn Adjusted Production Toolkit
 
 PIP torch, pymongo, pandas
 
+pandas as pd, Pool as p, numpy as np
+
 Update authexample and follow instructions inside file
 
 Create file mongopw.py '/Modules/Storage/mongopw.py'
