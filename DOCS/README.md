@@ -9,6 +9,7 @@ Create file mongopw.py '/Modules/Storage/mongopw.py'
 leave as below if you don't use auth or fill in if you are
 
 mongopass = ''
+
 db_addr = ''
 
 Modules typically return full lists or dicts
