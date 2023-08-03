@@ -1,6 +1,5 @@
 
 from multiprocessing import Pool
-from itertools import starmap
 from Modules.Transformers.abc_planet_system_keygen import abc_key
 from Modules.Transformers.StaticPairs import system_pairs
 from Modules.Transformers.StaticSystemConns import system_conns
