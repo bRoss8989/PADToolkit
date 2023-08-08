@@ -89,6 +89,34 @@ class Ship:
             self.stl_1 = 489*.8
             self.stl_1_r = 1500
 
+
+
+        elif ship_type == 'STD':
+
+            # STL Normal Burn roughly 125 sf in app/dep
+            self.sf_hours_norm = 2
+            self.sf_norm = 302
+            self.cx_discount_hours_norm = 0.75
+            self.cx_discount_sf_norm = 100
+            
+            # STL Low Burn  roughly 75 sf in app/dep
+            self.sf_hours_low = 2.71
+            self.sf_low = 192
+            self.cx_discount_hours_low = 1
+            self.cx_discount_sf_low = 50
+
+
+            #STL Flight info
+            self.stl_35 = 209*.6
+            self.stl_35_r = 300
+            self.stl_15 = 307*.6
+            self.stl_15_r = 600
+            self.stl_1 = 489*.6
+            self.stl_1_r = 1500
+
+
+            
+
     def get_attributes(self):
         return self.sf_hours_norm, self.sf_hours_low, self.sf_norm, self.sf_low, self.cx_discount_hours_norm, self.cx_discount_sf_norm, self.stl_35, self.stl_35_r, self.stl_15, self.stl_15_r, self.stl_1, self.stl_1_r
 
@@ -115,6 +143,11 @@ def ff_stats(ship,gw):
             bonus_ratio = gw / 7200
             bonus = bonus * bonus_ratio
             parsec_per_hour = parsec_per_hour * (1+bonus)
+
+    if ship == 'STD':
+        charge_time = gw * 0.125 / 7200
+        vol_bonus = 963 / 2682
+        parsec_per_hour = parsec_per_hour / vol_bonus
 
     if ship == 'VCB':
         vol_bonus = 3732 / 2682
