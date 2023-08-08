@@ -5,7 +5,6 @@ from Modules.Transformers.StaticPairs import stl_pairs
 from Modules.Transformers.StaticSystemStars import system_stars
 from Modules.Transformers.abc_planet_system_keygen import abc_key
 from Modules.FIO.FioAllPlanetsDict import FioNaturalPlanets
-from Modules.FIO.FioAllPlanetsDict import FioNaturalPlanets
 
 
 stl_pairs_dict = stl_pairs()
