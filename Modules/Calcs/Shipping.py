@@ -15,6 +15,7 @@ cxcode = ['BEN','MOR','HRT','ANT','ARC','HUB']
 jump_dict = JumpDict()
 
 
+# holds all stats by shiptype
 class Ship:
     def __init__(self, ship_type):
 
@@ -121,6 +122,7 @@ class Ship:
         return self.sf_hours_norm, self.sf_hours_low, self.sf_norm, self.sf_low, self.cx_discount_hours_norm, self.cx_discount_sf_norm, self.stl_35, self.stl_35_r, self.stl_15, self.stl_15_r, self.stl_1, self.stl_1_r
 
 
+# stats for FTL engines by shiptype and given gw
 def ff_stats(ship,gw):
     max_parsec_hr = 5.1
     ff_parsec_4800gw = 14.288758698493655
@@ -156,6 +158,10 @@ def ff_stats(ship,gw):
     return charge_time, parsec_per_hour, ff_per_parsec
 
 
+# calc for STL only flights using the planets oribtal axis as a weight
+# pairs are assumed very fast if they are both close to the sun
+# pairs assumed to have higher deviations in flight times the further from the sun and flights might be much shorter than calc in ideal windows
+# pairs that exceed a certain orbital axis use a 1 load daily FTL round trip
 def stl(ship, system, start, end):
 
     my_ship = Ship(ship)
@@ -191,7 +197,10 @@ def stl(ship, system, start, end):
 
 
 
-
+# main shipping calc that will revert to the STL calc if in the same system
+# sampled planets appear to increase in STL hours on high grav planets esp gas giants and fuel is added for these
+# sampled cx don't have full STL flights and a large portion of time and fuel removed from the calc
+# fuel use and shipping windows are returned for round trips
 def shipping_lpd(ship, start, end, gw, sf_burn): 
 
     if start == end:
@@ -268,7 +277,10 @@ def shipping_lpd(ship, start, end, gw, sf_burn):
         sf_used = sf_used * 1.9
         return ftl_loads, ff_used, sf_used, ff_hours, par, parsec_per_hour;
 
-
+# goal is to compare the time cost and fuel cost to find the best flight
+# a list of combinations of flights are returned starting at 7200 gw and going down 400 until 1200 gw
+# stl is tested for a low and normal fuel use at every gw
+# combinations are ranked using fuel cost plus ship time given the daily value. the lowest value is the best value
 def shipping_optimizer_emptyback(ship, ship_value_daily, start, end):
     
     max_gw = 7200
