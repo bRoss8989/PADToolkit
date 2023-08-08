@@ -1,16 +1,16 @@
 import pandas as pd
+import math
 from Modules.Calcs.JumpCalc import JumpDict
 from Modules.Transformers.StaticPairs import stl_pairs
 from Modules.Transformers.StaticSystemStars import system_stars
 from Modules.Transformers.abc_planet_system_keygen import abc_key
 from Modules.FIO.FioAllPlanetsDict import FioNaturalPlanets
-import math
+from Modules.FIO.FioAllPlanetsDict import FioNaturalPlanets
 
 
 stl_pairs_dict = stl_pairs()
 system_stars = system_stars()
 planets_data = FioNaturalPlanets()
-from Modules.FIO.FioAllPlanetsDict import FioNaturalPlanets
 cxcode = ['BEN','MOR','HRT','ANT','ARC','HUB']
 jump_dict = JumpDict()
 
