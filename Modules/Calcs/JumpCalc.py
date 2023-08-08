@@ -13,6 +13,10 @@ parsec_dict = parsec()
 
 
 
+# Steps all paths forward once and creates new paths for valid systems
+# simple dijakstra pushing forward in all directions only eleminating paths once the path is worse than the current best completed path
+# or the path enters a system with more parsecs than another path
+# parsecs as weight tested in-game in an older version and assumed still accurate
 def next_path(path_list, complete_path, system_lowest_path,end):
       
     new_path_list = []
@@ -34,6 +38,8 @@ def next_path(path_list, complete_path, system_lowest_path,end):
     return new_path_list, complete_path, system_lowest_path
 
 
+# returns a single fastest path
+# can be modified to return complete_path for the [sys1, sys2,..etc] order of the jumps
 def fastest_path(start,end):
     
     path_list = [[0,start]]
@@ -54,7 +60,9 @@ def fastest_path(start,end):
     return final
 
 
-def all_systempairs_fastest_path():            # returns a list of all paths [pair,parsecs,jump count]
+# returns a list of all paths [pair,parsecs,jump count]
+# using Pool with around 1MB per process
+def all_systempairs_fastest_path():            
 
     pairs = system_pairs()
     
