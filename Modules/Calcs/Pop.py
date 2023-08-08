@@ -1,6 +1,8 @@
 from Modules.FIO.FioPull import FIO_PULL
 
 
+# takes a list of population reports from FIO and finds the greatest(newest)
+# builds a dict pop type and planet with the most recent 12 weeks in acsending order
 def pop():
 
     infrastructure = FIO_PULL('/infrastructure/all')
@@ -94,6 +96,8 @@ def pop():
         pop_dict[planet] = masterlist
     return pop_dict
 
+# returns a dict with key as planet and provides a list with each pop type for the most recent report
+# example {'UV-351c': [40,000, 20,000, 10,000, 1,000, 150]}
 def current_pop():
 
     pop = pop()
