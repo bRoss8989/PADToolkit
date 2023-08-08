@@ -1,5 +1,13 @@
 # PAD-Toolkit
-PrUn Adjusted Production Toolkit
+PrUn Adjusted Production Toolkit for the game prosperous universe.
+
+Many modules for use in Jupyter or for other python apps.
+
+PAD - adjusted production calculations for all combinations sourcing on-site or shipping in
+
+Trade Finder - tests combinations of shipping requests to find the best route given a starting point, ending point, ship type, and days available.
+
+Data source from FIO https://doc.fnar.net/#/
 
 PIP torch, pymongo, pandas
 
