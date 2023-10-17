@@ -1,12 +1,14 @@
 from Modules.FIO.FioPull import FIO_PULL
-
+from Modules.Transformers.StaticPlanetRequirements import build_requirements_dict
+import pandas as pd
+import numpy as np
 
 # takes a list of population reports from FIO and finds the greatest(newest)
 # builds a dict pop type and planet with the most recent 12 weeks in acsending order
 def pop():
 
     infrastructure = FIO_PULL('/infrastructure/all')
-    infra_dict = {}
+    infra_dict = {}  
     
     for item in infrastructure:
         key = item['PlanetNaturalId']
@@ -100,15 +102,15 @@ def pop():
 # example {'UV-351c': [40,000, 20,000, 10,000, 1,000, 150]}
 def current_pop():
 
-    pop = pop()
+    pops = pop()
     
     current_pop_dict = {}
     pop_order = ['PIO','SET','TECH','ENG','SCI']
     
-    for planet in pop.keys():
+    for planet in pops.keys():
         templist = [0,0,0,0,0]
         
-        for pop_list_item in pop[planet]:
+        for pop_list_item in pops[planet]:
             index = pop_order.index(pop_list_item[2])
             templist[index] = pop_list_item[-1]
             
@@ -121,3 +123,35 @@ def current_pop():
         else:
             current_pop_dict[planet] = templist
     return current_pop_dict
+
+
+
+def popbyrequirement(ticker):
+
+    req_planets = []
+    brl = build_requirements_dict()
+    
+    for planet in brl.keys():
+        try:
+            if ticker in brl[planet]:
+                for pop_type in pop_list[planet]:
+                    temp_list = pop_type[3:]
+                    req_planets.append(temp_list)
+        except:
+            continue
+
+    np_list = np.array(req_planets)
+    np_list = np.sum(np_list, axis=0)
+    
+    return np_list
+
+def df_popbyrequirement():
+    
+    require_dict_planetpop = {}
+    header = ['Week-11', 'Week-10','Week-9','Week-8','Week-7','Week-6','Week-5','Week-4','Week-3','Week-2','Week-1','Week-Current']
+    index_ticker = ['MCG', 'AEF', 'SEA', 'HSE', 'TSH', 'INS', 'MGC', 'BL']
+
+    for iticker in index_ticker:
+        require_dict_planetpop[iticker] = popbyrequirement(iticker)
+
+    return pd.DataFrame.from_dict(require_dict_planetpop, orient='index', columns = header)
