@@ -157,4 +157,4 @@ def df_popbyrequirement():
 
     df = pd.DataFrame.from_dict(require_dict_planetpop, orient='index', columns = header)
 
-    return df
+    return df.round(decimals=0)
