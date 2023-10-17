@@ -130,6 +130,7 @@ def popbyrequirement(ticker):
 
     req_planets = []
     brl = build_requirements_dict()
+    pop_list = pop()
     
     for planet in brl.keys():
         try:
@@ -154,4 +155,6 @@ def df_popbyrequirement():
     for iticker in index_ticker:
         require_dict_planetpop[iticker] = popbyrequirement(iticker)
 
-    return pd.DataFrame.from_dict(require_dict_planetpop, orient='index', columns = header)
+    df = pd.DataFrame.from_dict(require_dict_planetpop, orient='index', columns = header)
+
+    return df
