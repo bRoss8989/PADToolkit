@@ -3,6 +3,9 @@ import pandas as pd
 import itertools
 
 
+# fio pull the contracts and pass into funct
+# id_dict is unique contracts
+# contract_dict is a list of contracts to the same start-> end
 def shipping_contracts(contracts):
 
     contract_dict = {}
@@ -37,6 +40,10 @@ def cargo(ship):
         ship_cargo = [500,500]
     return ship_cargo
 
+# needs cargo size [weight/vol]
+# feed in contract and id dict
+# outputs a dict of full ship loads for a single ship type
+# outputs a 2nd dict with contract info for mapping back to id dict
 
 def full_load(ship_cargo,contract_dict, id_dict):
     
@@ -125,9 +132,11 @@ def full_load(ship_cargo,contract_dict, id_dict):
         
             limit = limit+1
 
-    return full_ship_dict
+    return full_ship_dict, full_ship_dict_contractinfo
 
 
+# runs the empty back funct and halves it since it does round trips
+# ship cost needs to be accurate and taken out later so that the empty back calc finds the best fuel use
 def flight_time(origin ,dest, ship):
     if origin == dest:
         return [0,0]
@@ -137,6 +146,7 @@ def flight_time(origin ,dest, ship):
     return [(1/(shipcheck.iloc[0]['loads daily'])) / 2 , shipcheck.iloc[0]['empty back cost'] / 2]
 
 
+#used with the optimizer to move forward one contract
 def flight_combo(end, current_days, current_money, index, ship, loads, maxdays, full_ship_dict):
     
     current_origin = index[-1]
@@ -171,6 +181,9 @@ def flight_combo(end, current_days, current_money, index, ship, loads, maxdays, 
     return load_one_forward, load_one_complete
 
 
+# outputs dataframe with tier1 full trips sorted by cost
+# needs to be used in conjunction with the shipdict by ship type contract info
+# and id dict to back into all the contracts for each leg
 def shipment_optimizer(start, end, ship, full_ship_dict):
 
     maxdays = 3
