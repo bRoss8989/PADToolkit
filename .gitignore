@@ -162,4 +162,5 @@ cython_debug/
 auth.json
 fiokey.json
 mongopw.py
+pass.py
 /Data/*
