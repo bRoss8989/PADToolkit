@@ -61,9 +61,9 @@ def full_load(ship_cargo,contract_dict, id_dict):
             dest = contract[2]
             money = contract[6]
             
-            if weight <= ship_cargo[0] or vol <= ship_cargo[1]:
+            if weight <= ship_cargo[0] and vol <= ship_cargo[1]:
                 
-                if weight > ship_cargo[0]*.99 or vol > ship_cargo[1]*.99:
+                if weight > ship_cargo[0]*.99 and vol > ship_cargo[1]*.99:
     #checks if contract is near a full load and adds to load dict
                     full_ship_dict[full_load_count] = [origin, dest, money]
                     full_ship_dict_contractinfo[full_load_count] = [contract[7]]
@@ -210,6 +210,13 @@ def shipment_optimizer(start, end, ship, full_ship_dict):
             loads.append(load)
             flight_combos.append([temp_days,'complete',temp_money,[load]])
             pending_combos.append([temp_days,'pending',temp_money,[load]])
+
+    ### debugging
+    if start == 'MOR' and end =='MOR' and ship == 'WCB':
+        print('pending combos start######################')
+        print(pending_combos)
+        print('pending combos end #######################')
+    
 
     limit = 0
     while limit != 15:
