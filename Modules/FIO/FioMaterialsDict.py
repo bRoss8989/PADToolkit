@@ -9,6 +9,9 @@ def FioMaterialsDict():
     for fiomat in materials_list:        
 
         mat = fiomat['Ticker']
+
+        if mat == 'CMK':
+            continue
         
         materials_dict[mat] = fiomat
         
