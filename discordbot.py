@@ -18,6 +18,8 @@ async def send_msg():
             for channel in guild.channels:
                 
                 if channel.name == 'rr-livedata' and isinstance(channel, discord.TextChannel):
+
+                    await channel.purge(limit=20)
                     
                     ff, he3, h = rr_msg()
                     
