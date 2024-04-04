@@ -56,7 +56,7 @@ def base_summary(persons, planet, items, burn):
 
 def rr_msg():
 
-    persons = ['MemoryAlpha', 'Aeper', 'roganartu','Ahantate','xflqr_']
+    persons = ['MemoryAlpha', 'Aeper', 'roganartu','FUC_Prozer','xflqr_']
     planet = 'VH-778b'
     items = ['H', 'HE3', 'FF']
     burn = {
@@ -74,7 +74,7 @@ def rr_msg():
     
     df_vh778 = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
     
-    persons = ['MemoryAlpha', 'Paris_In_Springtime', 'FUC_Prozer']
+    persons = ['MemoryAlpha', 'Paris_In_Springtime', 'FUC_Prozer', 'Septin']
     planet = 'VH-043e'
     items = ['HE3']
     
@@ -82,7 +82,7 @@ def rr_msg():
     
     df_vh043 = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
     
-    persons = ['xflqr_', 'Ahantate']
+    persons = ['xflqr_', 'Jacchus']
     planet = 'VH-331i'
     items = ['H']
     

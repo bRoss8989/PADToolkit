@@ -3,6 +3,7 @@ import asyncio
 import pandas as pd
 from Modules.Discord.discordpass import DISCORD_TOKEN
 from Modules.Discord.rr_msg import rr_msg
+from Modules.Discord.dnpc_msg import dnpc_msg
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
@@ -39,8 +40,31 @@ async def send_msg():
                     
                     await channel.send(discord_message)
     
-#               if channel.name == 'hcc-livedata' and isinstance(channel, discord.TextChannel):
-#                   await channel.send('Bot here')
+                if channel.name == 'dnpc-livedata' and isinstance(channel, discord.TextChannel):
+
+                    await channel.purge(limit=20)
+                    
+                    deimos_supply, nike_supply, deimos_prod, nike_prod = dnpc_msg()
+                    
+                    DS_df = pd.DataFrame(deimos_supply)
+                    NS_df = pd.DataFrame(nike_supply)
+                    DP_df = pd.DataFrame(deimos_prod)
+                    NP_df = pd.DataFrame(nike_prod)
+                    
+    
+                    md1 = DS_df.to_markdown()
+                    md2 = NS_df.to_markdown()
+                    md3 = DP_df.to_markdown()
+                    md4 = NP_df.to_markdown()
+    
+                    discord_message2 = (
+                        f"Deimos Supply Summary\n```\n{md1}\n```\n"
+                        f"Deimos Production Summary\n```\n{md3}\n```\n"
+                        f"Nike Supply Summary\n```\n{md2}\n```\n"
+                        f"Nike Prod Summary\n```\n{md4}\n```\n"
+                    )
+                    
+                    await channel.send(discord_message2)
 
         await asyncio.sleep(3600)  # Sleeps for 1 hour
 
