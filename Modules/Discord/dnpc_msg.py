@@ -36,11 +36,11 @@ def wh_count(name, item, planet):
         return 0
 
     # get the store id for the warehouse
+    site_code = None
     for ware in site_dict[name]:
         if ware['LocationNaturalId'] == planet:
             site_code = ware['StoreId']
-        else:
-            site_code = None
+            
 
     # get the item quantity from the warehouse
     for storage in inv_dict[name]:
@@ -124,12 +124,13 @@ def dnpc_msg():
     
     df_ZV759c = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
 
-    persons = ['KZ_Kawasaki', 'roganartu', 'kaosaur', 'CptColeslaw', 'australis']
+    persons = ['KZ_Kawasaki', 'harveyG', 'kaosaur', 'CptColeslaw', 'roganartu']
     planet = 'ZV-194a'
     items = ['AL', 'LST']
     project = 'NIKE-SUPPLY'
     
-    summary = base_summary(persons, planet, items, project) 
+    summary = base_summary(persons, planet, items, project)
+    summary['harveyG'][0] = 0
     
     df_ZV194a = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
 
@@ -143,7 +144,7 @@ def dnpc_msg():
     
     df2_ZV759c = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
 
-    persons = ['australis', 'Jacchus', 'jvaler', 'Paris_In_Springtime', 'roganartu', 'Yinxx']
+    persons = ['australis', 'Jacchus', 'jvaler', 'Paris_In_Springtime', 'harveyG', 'Yinxx']
     planet = 'ZV-194a'
     items = ['BBH', 'BSE', 'AL', 'LST']
     project = 'NIKE-PROD'
