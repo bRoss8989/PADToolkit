@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 from Modules.FIO.FioPull import FIO_PULL
 
-df = pd.read_csv('Data/dnpc.csv')
+df = pd.read_csv('Data/hcc.csv')
 
 def base_pull(name,planet):
     return FIO_PULL('/Storage/'+name+'/'+planet)
@@ -111,46 +111,62 @@ def base_summary(persons, planet, items, project):
 inv_dict = {}
 site_dict = {}
 
-def dnpc_msg():
+def hcc_msg():
 
-    persons = ['BoJangles', 'xflqr_', 'Yinxx', 'Septin']
-    planet = 'ZV-759c'
-    items = ['ALO', 'O', 'C']
-    project = 'DEIMOS-SUPPLY'
+    persons = ['Johiah', 'xflqr_', 'Astroblast777', 'FUC_Prozer', 'LancerCaster', 'ISHO', 'Jacchus', 'roganartu']
+    planet = 'FK-794b'
+    items = ['H2O']
+    project = 'BOUCHER-PROD'
     
     summary = base_summary(persons, planet, items, project) 
-    summary['xflqr_'][0] = 0
-    summary['xflqr_'][1] = 0
     
-    df_ZV759c = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
+    df_fk794b = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
 
-    persons = ['KZ_Kawasaki', 'harveyG', 'kaosaur', 'CptColeslaw', 'roganartu']
-    planet = 'ZV-194a'
-    items = ['AL', 'LST']
-    project = 'NIKE-SUPPLY'
+    persons = ['RiseofFilth', 'roganartu']
+    planet = 'FK-794c'
+    items = ['H2O', 'CAF']
+    project = 'FK-794c-SUPPLY'
     
     summary = base_summary(persons, planet, items, project)
-    summary['harveyG'][0] = 0
     
-    df_ZV194a = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
+    df_fk794c = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
 
-    persons = ['australis','CptColeslaw', 'kaosaur', 'roganartu']
-    planet = 'ZV-759c'
-    items = ['AL', 'ALO', 'O', 'C']
-    project = 'DEIMOS-PROD'
+    persons = ['RiseofFilth', 'roganartu', 'xflqr_', 'nano_xXx']
+    planet = 'FK-794d'
+    items = ['H2O', 'CAF', 'NS']
+    project = 'FK-794d-SUPPLY'
+    
+    summary = base_summary(persons, planet, items, project)
+    
+    df_fk794d = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
+
+    persons = ['roganartu']
+    planet = 'HRT'
+    items = ['H2O']
+    project = 'HRT-SUPPLY'
 
 
     summary = base_summary(persons, planet, items, project) 
     
-    df2_ZV759c = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
+    df_HRT = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
 
-    persons = ['australis', 'Jacchus', 'jvaler', 'Paris_In_Springtime', 'harveyG', 'Yinxx']
-    planet = 'ZV-194a'
-    items = ['BBH', 'BSE', 'AL', 'LST']
-    project = 'NIKE-PROD'
+    persons = ['roganartu']
+    planet = 'VH-331g'
+    items = ['H2O', 'HER', 'HOP', 'AMM']
+    project = 'AVALON-SUPPLY'
     
     summary = base_summary(persons, planet, items, project) 
     
-    df2_ZV194a = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
+    df_vh331g = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
+
+    persons = ['roganartu']
+    planet = 'VH-331a'
+    items = ['H2O', 'NS', 'DDT']
+    project = 'PROMITOR-SUPPLY'
     
-    return df_ZV759c, df_ZV194a, df2_ZV759c, df2_ZV194a
+    summary = base_summary(persons, planet, items, project) 
+    
+    df_vh331a = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
+    
+    
+    return df_fk794b, df_fk794c, df_fk794d, df_HRT, df_vh331g, df_vh331a

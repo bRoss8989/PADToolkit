@@ -4,6 +4,7 @@ import pandas as pd
 from Modules.Discord.discordpass import DISCORD_TOKEN
 from Modules.Discord.rr_msg import rr_msg
 from Modules.Discord.dnpc_msg import dnpc_msg
+from Modules.Discord.hcc_msg import hcc_msg
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
@@ -62,6 +63,38 @@ async def send_msg():
                         f"Deimos Production Summary\n```\n{md3}\n```\n"
                         f"Nike Supply Summary\n```\n{md2}\n```\n"
                         f"Nike Prod Summary\n```\n{md4}\n```\n"
+                    )
+                    
+                    await channel.send(discord_message2)
+
+                if channel.name == 'hcc-livedata' and isinstance(channel, discord.TextChannel):
+
+                    await channel.purge(limit=20)
+                    
+                    fk794b, fk794c, fk794d, HRT, vh331g, vh331a = hcc_msg()
+                    
+                    df_fk794b = pd.DataFrame(fk794b)
+                    df_fk794c = pd.DataFrame(fk794c)
+                    df_fk794d = pd.DataFrame(fk794d)
+                    df_HRT = pd.DataFrame(HRT)
+                    df_vh331g = pd.DataFrame(vh331g)
+                    df_vh331a = pd.DataFrame(vh331a)
+                    
+    
+                    md1 = df_fk794b.to_markdown()
+                    md2 = df_fk794c.to_markdown()
+                    md3 = df_HRT.to_markdown()
+                    md4 = df_vh331g.to_markdown()
+                    md5 = df_vh331a.to_markdown()
+                    md6 = df_fk794d.to_markdown()
+    
+                    discord_message2 = (
+                        f"Boucher Production Summary\n```\n{md1}\n```\n"
+                        f"fk794c Supply Summary\n```\n{md2}\n```\n"
+                        f"fk794d Supply Summary\n```\n{md6}\n```\n"
+                        f"HRT Supply Summary\n```\n{md3}\n```\n"
+                        f"Avalon Supply Summary\n```\n{md4}\n```\n"
+                        f"Promitor Supply Summary\n```\n{md5}\n```\n"
                     )
                     
                     await channel.send(discord_message2)
