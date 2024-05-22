@@ -134,7 +134,7 @@ def dnpc_msg():
     
     df_ZV194a = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
 
-    persons = ['australis','CptColeslaw', 'kaosaur', 'roganartu']
+    persons = ['CptColeslaw', 'kaosaur', 'roganartu']
     planet = 'ZV-759c'
     items = ['AL', 'ALO', 'O', 'C']
     project = 'DEIMOS-PROD'
@@ -144,7 +144,7 @@ def dnpc_msg():
     
     df2_ZV759c = pd.DataFrame.from_dict(summary,orient = 'index', columns=items)
 
-    persons = ['australis', 'Jacchus', 'jvaler', 'Paris_In_Springtime', 'harveyG', 'Yinxx']
+    persons = ['Jacchus', 'jvaler', 'Paris_In_Springtime', 'harveyG', 'Yinxx']
     planet = 'ZV-194a'
     items = ['BBH', 'BSE', 'AL', 'LST']
     project = 'NIKE-PROD'

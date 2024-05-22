@@ -3,6 +3,8 @@ import requests
 import json
 import os
 import time
+from io import StringIO
+import pandas as pd
 from CommonPaths import fio_base_dir
 
 def FIO_PULL(location, loop=0):             #1. gets api headers via key check
@@ -18,7 +20,13 @@ def FIO_PULL(location, loop=0):             #1. gets api headers via key check
         status_code = fiocontent.status_code
         
         if status_code == 200:
-            return json.loads(fiocontent.content)
+
+            if 'csv' in location:
+                data_io = StringIO(fiocontent.content.decode('utf-8'))
+                df = pd.read_csv(data_io)
+                return df
+            else:
+                return json.loads(fiocontent.content)
         
         else:
 
