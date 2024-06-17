@@ -16,6 +16,8 @@ def FIO_PULL(location, loop=0):             #1. gets api headers via key check
             return head
         
         fiocontent = requests.get('https://rest.fnar.net/'+location,headers=head)
+        #fiocontent = requests.get('https://api.fnar.net/'+location,headers=head)
+        
         
         status_code = fiocontent.status_code
         

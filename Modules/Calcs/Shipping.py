@@ -271,10 +271,10 @@ def shipping_lpd(ship, start, end, gw, sf_burn):
         sf_used = sf_used * 1.9
         return ftl_loads, ff_used, sf_used, ff_hours, par, parsec_per_hour;
     if hours > 11:
-        ftl_loads = 1/(math.floor((hours-1)/12) + 1)   ## 1 hr buffer 1/multiple of 12hrs gives loads
+        ftl_loads = 24/((math.floor((hours+1)/12)+1)*24)   ## 1 hr buffer 1/multiple of 12hrs gives loads
         ff_used = ff_used * 2
         sf_used = sf_used * 1.9
-        return ftl_loads, ff_used, sf_used, ff_hours, par, parsec_per_hour;
+        return ftl_loads, ff_used, sf_used, hours, par, parsec_per_hour;
 
 # goal is to compare the time cost and fuel cost to find the best flight
 # a list of combinations of flights are returned starting at 7200 gw and going down 400 until 1200 gw
