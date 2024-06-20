@@ -147,7 +147,7 @@ def flight_time(origin ,dest, ship):
 
 
 #used with the optimizer to move forward one contract
-def flight_combo(end, current_days, current_money, index, ship, loads, maxdays, full_ship_dict):
+def flight_combo(end, current_days, current_money, index, ship, full_ship_dict,loads, maxdays):
     
     current_origin = index[-1]
     current_origin = full_ship_dict[current_origin][1]
@@ -169,6 +169,7 @@ def flight_combo(end, current_days, current_money, index, ship, loads, maxdays, 
 
         temp_days = temp_days + temp_flight[0] + temp_flight2[0]
         temp_money = temp_money - (temp_flight[1] + temp_flight2[1])
+
 
         end_flight_check = flight_time(next_dest, end, ship)
 
@@ -193,14 +194,17 @@ def shipment_optimizer(start, end, ship, full_ship_dict):
     loads = []
 
     for load in full_ship_dict.keys():
+    
+        temp_days = 0
+        temp_money = 0
         
         temp_dest, next_dest, next_money = full_ship_dict[load]
         
-        temp_flight = flight_time(start, temp_dest, ship)
-        temp_flight2 = flight_time(temp_dest, next_dest, ship)
+        temp_flight = flight_time(start, temp_dest, ship)  #flight to get contract
+        temp_flight2 = flight_time(temp_dest, next_dest, ship) #flight to drop off contract
         
         temp_days = temp_flight[0] + temp_flight2[0]
-        temp_money = next_money - (temp_flight[1] + temp_flight2[1])
+        temp_money = next_money - temp_flight[1] - temp_flight2[1]
         
         end_flight_check = flight_time(next_dest, end, ship)
         
@@ -212,17 +216,17 @@ def shipment_optimizer(start, end, ship, full_ship_dict):
             pending_combos.append([temp_days,'pending',temp_money,[load]])
 
     ### debugging
-    if start == 'MOR' and end =='MOR' and ship == 'WCB':
-        print('pending combos start######################')
-        print(pending_combos)
-        print('pending combos end #######################')
+#    if start == 'MOR' and end =='MOR' and ship == 'WCB':
+#        print('pending combos start######################')
+#        print(pending_combos)
+#        print('pending combos end #######################')
     
 
     limit = 0
     while limit != 15:
         new_pending = []
         for pend in pending_combos:
-            temp_pend, temp_complete = flight_combo(end, pend[0], pend[2], pend[3], ship, loads, maxdays, full_ship_dict)
+            temp_pend, temp_complete = flight_combo(end, pend[0], pend[2], pend[3], ship, full_ship_dict, loads, maxdays)
             if temp_pend == []:
                 break
             for tp in temp_pend:
