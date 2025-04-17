@@ -285,8 +285,8 @@ def shipping_optimizer_emptyback(ship, ship_value_daily, start, end):
     max_gw = 7200
     max_ff = 4000
     min_gw = 1200
-    dollar_per_sf = 14.79141344
-    dollar_per_ff = 15.1124692
+    dollar_per_sf = 16
+    dollar_per_ff = 19
     
     gw_used = 7200
     combo_list = []
