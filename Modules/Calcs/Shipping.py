@@ -114,6 +114,29 @@ class Ship:
             self.stl_1 = 489*.6
             self.stl_1_r = 1500
 
+        elif ship_type == 'HCB':
+
+            # STL Normal Burn roughly 145 sf in app/dep
+            self.sf_hours_norm = 3.2
+            self.sf_norm = 486
+            self.cx_discount_hours_norm = 0.33
+            self.cx_discount_sf_norm = 148
+            
+            # STL Low Burn  roughly 120 sf in app/dep
+            self.sf_hours_low = 4.2
+            self.sf_low = 343
+            self.cx_discount_hours_low = .8
+            self.cx_discount_sf_low = 60
+
+
+            #STL Flight info
+            self.stl_35 = 295
+            self.stl_35_r = 300
+            self.stl_15 = 295*1.2
+            self.stl_15_r = 500
+            self.stl_1 = 500
+            self.stl_1_r = 1000
+
 
             
 
@@ -130,6 +153,8 @@ def ff_stats(ship,gw):
         parsec_per_hour = gw * max_parsec_hr / 7200 + 0.7070473423355021 * ((2800 - (gw-2000))/2800)
         if gw < 2000:
             parsec_per_hour = parsec_per_hour + 0.1 * ((800 - (gw-1200))/800)
+        if gw < 2000 and ship == "HCB":
+            return 'error gw too low'
         if gw < 1200:
             return 'error gw too low'
     else:
@@ -153,6 +178,21 @@ def ff_stats(ship,gw):
     if ship == 'VCB':
         vol_bonus = 3732 / 2682
         parsec_per_hour = parsec_per_hour / vol_bonus
+
+    if ship == 'HCB':
+        vol_bonus = 5832 / 2682
+        test = [2000,2400,2800,3200,3600,4000,4400,4800,5200,5600,6000,6400,6800,7200]
+        tested_pph = [1.8193371129265599, 1.8777949280509405, 1.937275725035243, 1.9953352023788635, 2.0585924044895045, 2.1217037488788564, 2.1851697521689593, 2.2593228494289885, 2.327302474987029, 
+                      2.3984056513774212, 2.473990401444348, 2.5495412474409522, 2.632484281016359, 2.719598548847303]
+        closest_index = max((i for i in range(len(test)) if test[i] <= gw), key=lambda i: test[i])
+        
+        if gw == 7200:
+            parsec_per_hour = tested_pph[-1]
+        else:
+            gw_dif = tested_pph[closest_index+1] - tested_pph[closest_index]
+            gw_percent = (gw - test[closest_index]) / (test[closest_index+1] - test[closest_index])
+            parsec_per_hour = tested_pph[closest_index] + gw_dif * gw_percent
+            
     
     return charge_time, parsec_per_hour, ff_per_parsec
 
@@ -280,18 +320,19 @@ def shipping_lpd(ship, start, end, gw, sf_burn):
 # a list of combinations of flights are returned starting at 7200 gw and going down 400 until 1200 gw
 # stl is tested for a low and normal fuel use at every gw
 # combinations are ranked using fuel cost plus ship time given the daily value. the lowest value is the best value
-def shipping_optimizer_emptyback(ship, ship_value_daily, start, end):
+def shipping_optimizer_emptyback(ship, ship_value_daily, start, end, dollar_per_sf = 16, dollar_per_ff = 19):
     
     max_gw = 7200
     max_ff = 4000
     min_gw = 1200
-    dollar_per_sf = 16
-    dollar_per_ff = 19
     
+    if ship == "HCB":
+        min_gw = 2000
+        
     gw_used = 7200
     combo_list = []
 
-    while gw_used >= 1200:
+    while gw_used >= min_gw:
         sf_multiplier = 1
         needs_refuel = 'No'
         temp_norm = shipping_lpd(ship, start, end, gw_used, 'norm')
@@ -301,7 +342,7 @@ def shipping_optimizer_emptyback(ship, ship_value_daily, start, end):
         if temp_norm[1] > max_ff:  #checks fuel use and continues if over max tank
             gw_used = gw_used - 400
             
-            if gw_used == 1200 and combo_list == []:                                             #checks if a refeul is required at min gw. 
+            if gw_used == min_gw and combo_list == []:                                             #checks if a refeul is required at min gw. 
                 combo_list.append([dollars+ ship_value_daily + 2*(dollar_per_sf * temp_norm[2]), #increases cost by 1 day and extra sf for landing
                                    1/(1/temp_norm[0] +1),                                        # adds 1 day to days per load and converts back to loads per day
                                     gw_used,

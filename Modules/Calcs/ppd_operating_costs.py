@@ -20,8 +20,9 @@ def amortization(total_mat, amort_days=180):
 base_amor = np.vectorize(amortization)
 base_repair = np.vectorize(daily_repair_cost)
 
-base_price = np.array(default_buildreq_ppd)
-food_price = np.array(default_foodreq_ppd)
+base_price = 50000 / np.array(default_buildreq_ppd)
+food_price = 50000 / np.array(default_foodreq_ppd)
+
 
 
 def operating_cost_by_baseday(building, days_since_build=89, amort_days=180):
@@ -33,7 +34,7 @@ def operating_cost_by_baseday(building, days_since_build=89, amort_days=180):
     food_multiple = plan[index] 
     plan = plan[:, np.newaxis]
     food_total = food * food_multiple
-    food_cost_by_baseday = np.sum(days_peramount(food_price, food_total), axis=0)
+    food_cost_by_baseday = np.sum(food_price * food_total, axis=0)
     #temp_food_price = dw_model_fromppd(500.3118542313757,food_price, 70)
     #temp_base_price = dw_model_fromppd(500.3118542313757,base_price, 70)
     #food_cost_by_baseday = np.sum(temp_food_price * food_total, axis=0)
@@ -57,7 +58,7 @@ def operating_cost_by_baseday(building, days_since_build=89, amort_days=180):
 
         base_quant = amor + repair
 
-        base_cost_by_baseday = np.sum(days_peramount(base_price, base_quant), axis=0)
+        base_cost_by_baseday = np.sum(base_price* base_quant, axis=0)
         
         #base_cost_by_baseday = np.sum(temp_base_price * base_quant, axis=0)
 

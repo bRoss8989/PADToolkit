@@ -36,6 +36,8 @@ def cargo(ship):
         ship_cargo = [3000,1000]
     elif ship == 'VCB':
         ship_cargo = [1000,3000]
+    elif ship == "HCB":
+        ship_cargo = [5000,5000]
     else:
         ship_cargo = [500,500]
     return ship_cargo

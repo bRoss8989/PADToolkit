@@ -79,7 +79,13 @@ def full_dict_build_arrays():
         for combo in req_combos:
             combos[combo] = reqhash_to_array(combo)
             area_multiple = cost_per_array*area
-            combos[combo] = combos[combo] * area_multiple
+            area_multiple2 = []
+            for x in area_multiple:
+                if x != 0:
+                   area_multiple2.append(x)
+                else:
+                    area_multiple2.append(1)
+            combos[combo] = combos[combo] * area_multiple2  
            
         # adding combos
         full_dict_building_arrays[bui]['combos'] = combos
