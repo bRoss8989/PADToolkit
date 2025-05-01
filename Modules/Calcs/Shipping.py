@@ -363,6 +363,7 @@ def shipping_optimizer_emptyback(ship, ship_value_daily, start, end, dollar_per_
 
     col_des = ['empty back cost', 'loads daily', 'gw', 'sf_burn','refuel_midway']
     df = pd.DataFrame(combo_list, columns=col_des)
+    df["empty back cost"] = df["empty back cost"].astype('float32')
     df_sorted = df.sort_values(['empty back cost'], ascending = [True])
     
     return df_sorted

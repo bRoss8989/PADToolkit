@@ -14,7 +14,7 @@ def bp_array_insert(row, col, start, dest):
 def shipping_array(output='np'):    
 
     ## creates array with 0 vals
-    arr = np.zeros((4161, 4161), dtype=np.float64)
+    arr = np.zeros((4161, 4161), dtype=np.float32)
 
     ## creates a list of lists for the minimum runs needed
     row = 0
