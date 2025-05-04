@@ -20,8 +20,8 @@ def amortization(total_mat, amort_days=180):
 base_amor = np.vectorize(amortization)
 base_repair = np.vectorize(daily_repair_cost)
 
-base_price = 50000 / np.array(default_buildreq_ppd)
-food_price = 50000 / np.array(default_foodreq_ppd)
+base_price = 50000 / np.array(default_buildreq_ppd, dtype=np.float32)
+food_price = 50000 / np.array(default_foodreq_ppd, dtype=np.float32)
 
 
 
@@ -70,7 +70,7 @@ def operating_cost_by_baseday(building, days_since_build=89, amort_days=180):
         planet_hash = planet_req_dict[planet]
         final_list.append(hash_dict[planet_hash])
 
-    return np.array(final_list)
+    return np.array(final_list, dtype=np.float32)
 
 
 def operating_cost_by_building():

@@ -24,4 +24,4 @@ def reqhash_to_array(hash):
         if hash % value == 0:
             index = global_buildreq.index(key)
             build[index] = 1
-    return np.array(build)
+    return np.array(build, dtype=np.float32)

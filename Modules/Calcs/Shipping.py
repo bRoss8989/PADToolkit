@@ -1,5 +1,8 @@
 import pandas as pd
 import math
+import os
+import json
+from CommonPaths import data_dir
 from Modules.Calcs.JumpCalc import JumpDict
 from Modules.Transformers.StaticPairs import stl_pairs
 from Modules.Transformers.StaticSystemStars import system_stars
@@ -11,7 +14,17 @@ stl_pairs_dict = stl_pairs()
 system_stars = system_stars()
 planets_data = FioNaturalPlanets()
 cxcode = ['BEN','MOR','HRT','ANT','ARC','HUB']
-jump_dict = JumpDict()
+
+json_path = data_dir+'jumpdict.json'
+
+if os.path.exists(json_path):
+    with open(json_path, 'r') as f:
+        jump_dict = json.load(f)
+else:
+    jump_dict = JumpDict()
+    with open(json_path, 'w') as f:
+        json.dump(jump_dict, f)
+
 
 
 # holds all stats by shiptype

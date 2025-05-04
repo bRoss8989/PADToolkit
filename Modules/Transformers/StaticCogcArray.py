@@ -23,7 +23,7 @@ def cog_info():
         temp_work_list.append(buildings[bui]['Engineers'])
         temp_work_list.append(buildings[bui]['Scientists'])
     
-        temp_work_list = np.array(temp_work_list)
+        temp_work_list = np.array(temp_work_list, dtype=np.float32)
         total = temp_work_list.sum()
     
         temp_work_list2 = temp_work_list / total

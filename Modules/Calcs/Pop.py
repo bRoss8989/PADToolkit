@@ -141,7 +141,7 @@ def popbyrequirement(ticker):
         except:
             continue
 
-    np_list = np.array(req_planets)
+    np_list = np.array(req_planets, dtype=np.float32)
     np_list = np.sum(np_list, axis=0)
     
     return np_list

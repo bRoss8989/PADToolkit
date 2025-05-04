@@ -19,7 +19,7 @@ cost_per_array = [0] * len(global_buildreq)
 for key, value in cost_per_area.items():
     index = global_buildreq.index(key)
     cost_per_array[index] = value
-cost_per_array = np.array(cost_per_array)
+cost_per_array = np.array(cost_per_array, dtype=np.float32)
 
 
 
@@ -35,7 +35,7 @@ def planner_bui_count():
             index = default_buildings.index(building)
             temp_list[index] = value
             
-        base_plan_bui[key] = np.array(temp_list)
+        base_plan_bui[key] = np.array(temp_list, dtype=np.float32)
 
     return base_plan_bui
 
@@ -57,7 +57,7 @@ def full_dict_build_arrays():
             temp_buildreq[index] = cost['Amount']
     
         # adding buildingreq_array
-        full_dict_building_arrays[bui]['buildreq_array'] = np.array(temp_buildreq)
+        full_dict_building_arrays[bui]['buildreq_array'] = np.array(temp_buildreq, dtype=np.float32)
     
         pio = data['Pioneers']
         set = data['Settlers']
@@ -65,8 +65,8 @@ def full_dict_build_arrays():
         eng = data['Engineers']
         sci = data['Scientists']
     
-        temp_food = (np.array(req_dict['PIONEER']) * pio
-                     + np.array(req_dict['SETTLER']) * set
+        temp_food = (np.array(req_dict['PIONEER'], dtype=np.float32) * pio
+                     + np.array(req_dict['SETTLER'], dtype=np.float32) * set
                      + req_dict['TECHNICIAN'] * tech
                      + req_dict['ENGINEER'] * eng
                      + req_dict['SCIENTIST'] * sci
