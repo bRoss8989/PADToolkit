@@ -114,7 +114,7 @@ class Ship:
             
             # STL Low Burn  roughly 75 sf in app/dep
             self.sf_hours_low = 2.71
-            self.sf_low = 192
+            self.sf_low = 265
             self.cx_discount_hours_low = 1
             self.cx_discount_sf_low = 50
 
