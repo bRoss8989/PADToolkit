@@ -186,7 +186,16 @@ def ff_stats(ship,gw):
     if ship == 'STD':
         charge_time = gw * 0.125 / 7200
         vol_bonus = 963 / 2682
-        parsec_per_hour = parsec_per_hour / vol_bonus
+        test = [1200,1600,2000,2400]
+        tested_pph = [2.270032551075857, 2.723043432979153, 3.2936546563355273, 4.72132245413876]
+        closest_index = max((i for i in range(len(test)) if test[i] <= gw), key=lambda i: test[i])
+        
+        if gw == 2400:
+            parsec_per_hour = tested_pph[-1]
+        else:
+            gw_dif = tested_pph[closest_index+1] - tested_pph[closest_index]
+            gw_percent = (gw - test[closest_index]) / (test[closest_index+1] - test[closest_index])
+            parsec_per_hour = tested_pph[closest_index] + gw_dif * gw_percent
 
     if ship == 'VCB':
         vol_bonus = 3732 / 2682
@@ -341,8 +350,13 @@ def shipping_optimizer_emptyback(ship, ship_value_daily, start, end, dollar_per_
     
     if ship == "HCB":
         min_gw = 2000
-        
+     
     gw_used = 7200
+    
+    if ship == "STD":
+        max_gw = 2400 
+        gw_used = 2400
+        
     combo_list = []
 
     while gw_used >= min_gw:
